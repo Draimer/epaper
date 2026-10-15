@@ -1190,6 +1190,41 @@ table, .sx-log, .job-log { min-width: 0; }
   .sx .you-q { font-size: .88rem; }
 }
 
+
+/* e-paper pace: slow plus persistent keeps people in the loop */
+.pace { display: grid; gap: 14px; }
+.pace-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; }
+.pace-bar .seg { margin: 0; }
+.pace-tl { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; font-family: var(--f-mono); font-size: .72rem; color: var(--ink-2); }
+.pace-track { height: 4px; background: #23262d; border-radius: 2px; overflow: hidden; }
+.pace-track i { display: block; height: 100%; width: 0; background: var(--signal); }
+.pace-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.pace-col { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.pace-col > .k { font-size: .8rem; color: var(--ink-2); }
+.pace-lcd { position: relative; min-height: 120px; border-radius: 10px; padding: 14px 16px; background: linear-gradient(160deg, #0f2232, #0a1520); color: #e4eef6; box-shadow: 0 0 0 6px #1b1d22, 0 0 28px rgba(110, 170, 230, .18); overflow: hidden; }
+.pace-lcd .pn { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .1em; color: #8fb3cf; }
+.pace-lcd p { margin: 6px 0 0; font-size: 1rem; line-height: 1.6; }
+.pace-lcd.blur p, .pace-lcd.blur .pn { filter: blur(2.6px); opacity: .75; }
+.pace-epd { min-height: 120px; box-shadow: 0 0 0 6px var(--bezel); border-radius: 4px; }
+.pace-st { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.pace-st li { background: var(--panel); border-radius: 10px; padding: 7px 10px; display: grid; gap: 2px; box-shadow: inset 0 0 0 1px rgba(48, 50, 56, .7); }
+.pace-st span { font-size: .72rem; color: var(--ink-2); }
+.pace-st b { font-family: var(--f-mono); font-weight: 400; font-size: .95rem; color: var(--ink); }
+.pace-st b.bad { color: var(--covert); }
+.pace-st b.good { color: var(--signal); }
+.pace-sum { margin: 0; font-size: .95rem; line-height: 1.7; background: #16181d; border-radius: 10px; padding: 10px 14px; box-shadow: inset 2px 0 0 var(--signal); }
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.why-c { background: var(--panel); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; box-shadow: inset 0 0 0 1px rgba(48, 50, 56, .7); }
+.why-c .k { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .1em; color: var(--signal); }
+.why-c h4 { margin: 0; font-size: 1.02rem; font-weight: 500; }
+.why-c p { margin: 0; font-size: .88rem; line-height: 1.7; color: var(--ink-2); }
+.why-c.cons { background: transparent; box-shadow: inset 0 0 0 1px var(--rule); }
+.why-c.cons .k { color: var(--covert); }
+@media (max-width: 760px) {
+  .pace-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .why { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* entrance motion: elements rise in as they approach; titles wipe in. Nothing waits hidden: the class is added just before an element enters the viewport. */
 .rv-in { animation: rise .95s cubic-bezier(.2, .65, .3, 1) both; }
 .ch-title.rv-in { animation: wipe .8s cubic-bezier(.22, .68, 0, 1.2) both; }
@@ -1574,8 +1609,7 @@ table, .sx-log, .job-log { min-width: 0; }
     <div class="wrap">
       <div class="ch-head">
         <span class="ch-num">05 · 想像一下</span>
-        <h2 class="ch-title">影視劇中的啟示
-</h2>
+        <h2 class="ch-title">電影早就演過了</h2>
       </div>
       <div class="prose">
         <p>很多人很難想像「兩個 AI 用畫面對話」是什麼樣子。其實電影早就演過，下面這兩部最貼近：一部是兩台電腦在人看不懂的地方交談，最後失控；另一部是兩種完全不同的智慧，隔著一道牆，只靠「出示」和「看」來溝通。</p>
@@ -2213,7 +2247,7 @@ HTML 62 行（附資料圖塊）</div></div>
         <h2 class="ch-title">為什麼是電子紙</h2>
       </div>
       <div class="prose">
-        <p>要讓 AI 之間的對話在實體空間裡被人看見，這個通道需要做到六件事：一直顯示、安靜、陽光下清楚、鏡頭好讀、可以更新、省電。</p>
+        <p>要讓 AI 之間的對話在實體空間裡被人看見，這個通道需要做到幾件事：一直顯示、安靜、陽光下清楚、鏡頭好讀、可以更新、省電。還有兩件最容易被忽略、卻最重要的事：<b>不能快到人跟不上，也不能藏得住東西</b>。</p>
       </div>
       <div class="figure capsule-box">
         <div>
@@ -2225,6 +2259,64 @@ HTML 62 行（附資料圖塊）</div></div>
           <p>所以它同時有紙的優點（一直在、看得清、拍得穩）和螢幕的優點（可以更新）。換畫面時的刷新樣態，還能直接當成同步訊號。</p>
         </div>
       </div>
+      <h3 class="h-sub">慢，剛好讓人跟得上</h3>
+      <div class="prose">
+        <p>一般螢幕每秒可以換 60 到 120 張畫面，人眼大約只分得出每秒 40 到 50 次的變化。如果兩個 AI 用一般螢幕全速對話，鏡頭跟得上，人只會看到一片閃動。</p>
+        <p>電子紙換一次畫面要 0.26 到 0.45 秒，每秒最多只能換兩三次，而且每一次換畫面，人都看得到。換完之後內容會留在畫面上、不耗電，所以通話規則可以要求每則訊息停留到人讀完，不必為此多花電。</p>
+        <p>要說清楚的是：光是慢還不夠。全速的電子紙一則只停 0.45 秒，人看得到它在換，卻讀不完。真正讓人跟得上的是<b>「慢」加上「留得住」</b>：慢，保證每一次換畫面都看得到；留得住，讓訊息停到人讀完，也不必花電。</p>
+      </div>
+      <div class="figure pace" id="pace">
+        <div class="pace-bar">
+          <div class="seg sm" role="radiogroup" aria-label="AI 說話的速度">
+            <input type="radio" name="pacem" id="pace-f" value="fast" checked>
+            <label for="pace-f">AI 全速</label>
+            <input type="radio" name="pacem" id="pace-h" value="human">
+            <label for="pace-h">照人的速度</label>
+          </div>
+          <button class="btn ghost" id="pace-play" type="button">播放 10 秒</button>
+        </div>
+        <div class="pace-tl" aria-hidden="true"><span>0</span><div class="pace-track"><i id="pace-head"></i></div><span>10 秒</span></div>
+        <div class="pace-grid">
+          <div class="pace-col">
+            <span class="k">一般螢幕 · 每秒最多換 60 次</span>
+            <div class="pace-lcd" id="pace-lcd"><span class="pn" id="pace-lcd-n">第 1 則</span><p id="pace-lcd-t">胸口痛 3 天，爬樓梯時加重</p></div>
+            <ul class="pace-st">
+              <li><span>傳了</span><b id="pl-sent">—</b></li>
+              <li><span>你看得出換了幾次</span><b id="pl-seen">—</b></li>
+              <li><span>你讀得完</span><b id="pl-read">—</b></li>
+              <li><span>需要通電的時間</span><b id="pl-pow">—</b></li>
+            </ul>
+          </div>
+          <div class="pace-col">
+            <span class="k">電子紙 · 換一次要 0.45 秒</span>
+            <div class="screen pace-epd" id="pace-epd"><div class="tag" id="pace-epd-n">第 1 則</div><div class="msg" id="pace-epd-t">胸口痛 3 天，爬樓梯時加重</div></div>
+            <ul class="pace-st">
+              <li><span>傳了</span><b id="pe-sent">—</b></li>
+              <li><span>你看得出換了幾次</span><b id="pe-seen">—</b></li>
+              <li><span>你讀得完</span><b id="pe-read">—</b></li>
+              <li><span>需要通電的時間</span><b id="pe-pow">—</b></li>
+            </ul>
+          </div>
+        </div>
+        <p class="pace-sum" id="pace-sum" aria-live="polite">按「播放 10 秒」，比較兩種螢幕在同樣 10 秒裡發生了什麼。</p>
+      </div>
+      <p class="note">示意：假設讀完一行字幕要 3 秒；電子紙以 GC16 每次 0.45 秒計（E Ink 手冊）；「人眼大約分得出每秒 40 到 50 次的變化」引自 InFrame 研究。為了避免頻閃，畫面上的高速切換以模糊表示，不是真的每秒換 60 次。</p>
+
+      <h3 class="h-sub">一般螢幕甚至能「當著你的面」偷偷傳</h3>
+      <div class="prose">
+        <p>這不是想像。螢幕與鏡頭之間的通訊研究已經做到：InFrame 在 120 Hz 的螢幕上，把資料藏在一正一負、互相抵消的畫面裡，人照常看影片、察覺不到，鏡頭卻能收到每秒 100 到 200 kbps 的資料；HiLight 把資料藏在像素透明度的細微變化裡，畫面看起來一切如常。</p>
+        <p>換句話說，用一般螢幕，「看得見」只是一個承諾：AI 可以一邊顯示給人看的字幕，一邊在同一個畫面裡偷偷傳別的東西。用電子紙，刷新慢、刷完畫面就靜止，這種藏在高速閃動裡的通道在物理上就做不到。<b>看得見，是材料本身保證的。</b></p>
+      </div>
+
+      <h3 class="h-sub">為什麼不用一般螢幕</h3>
+      <div class="why">
+        <div class="why-c"><span class="k">01 · 藏不住</span><h4>人一定看得到</h4><p>刷新慢、畫面靜止，無法用人察覺不到的高速變化藏資料。一般螢幕做得到（InFrame、HiLight）。</p></div>
+        <div class="why-c"><span class="k">02 · 省電</span><h4>畫面不動就不耗電</h4><p>雙穩態：只有換畫面時需要通電，一張報到卡可以整天顯示。一般螢幕只要畫面亮著，就要一直供電給背光或像素。</p></div>
+        <div class="why-c"><span class="k">03 · 拍得穩</span><h4>鏡頭拍不到條紋</h4><p>很多一般螢幕用快速明暗閃爍（PWM）調亮度，畫面也是一行一行掃描更新；手機鏡頭逐行曝光，容易拍出條紋或明暗不均。電子紙刷完後完全靜止、不發光，什麼時候拍都一樣。只有刷新那 0.45 秒會閃，那正是我們刻意拿來當訊號的時間，刷完才拍。</p></div>
+        <div class="why-c"><span class="k">04 · 刷新就是訊號</span><h4>換畫面有樣態</h4><p>一般螢幕換畫面幾乎瞬間完成，看不出是哪一種訊息。電子紙的 GC16 會閃、DU 不閃，鏡頭看樣態就知道何時刷完、要交給哪個模型。</p></div>
+        <div class="why-c"><span class="k">05 · 像紙</span><h4>不發光</h4><p>反光式顯示，陽光下清楚，夜裡也不刺眼（第 06 章的夜間病房）。</p></div>
+        <div class="why-c cons"><span class="k">要誠實面對的取捨</span><h4>一般螢幕也有優點</h4><p>彩色、能播影片、反應快、便宜。電子紙在全暗的地方需要環境光或前光，鏡頭才拍得到。這些取捨會在技術評估中和一般螢幕直接比較（第 17 章）。</p></div>
+      </div>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>需求</th><th class="c">語音</th><th class="c">一般螢幕</th><th class="c">列印的紙</th><th class="c">電子紙</th></tr></thead>
@@ -2235,10 +2327,13 @@ HTML 62 行（附資料圖塊）</div></div>
             <tr><td>鏡頭好讀</td><td class="c mid">不適用</td><td class="c mid">△ 易拍出條紋</td><td class="c yes">✓</td><td class="c yes">✓ 靜止不閃爍</td></tr>
             <tr><td>可以更新</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c no">✗</td><td class="c yes">✓</td></tr>
             <tr class="hl"><td>省電</td><td class="c yes">✓</td><td class="c no">✗</td><td class="c yes">✓</td><td class="c yes">✓ 換畫面時才耗電</td></tr>
+            <tr class="hl"><td>人跟得上</td><td class="c mid">△ 可以加速</td><td class="c no">✗ 每秒可換 60 次以上</td><td class="c yes">✓ 不會變</td><td class="c yes">✓ 每秒最多換兩三次</td></tr>
+            <tr class="hl"><td>藏不住東西</td><td class="c no">✗ 可改成人聽不懂的聲音</td><td class="c no">✗ 可藏在人看不出的閃動裡</td><td class="c yes">✓</td><td class="c yes">✓ 刷完就靜止</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="note">✓ 符合　△ 部分符合　✗ 不符合。電子紙和一般螢幕的差別主要在鏡頭那一端，技術評估會直接比較兩者，讓資料回答。</p>
+      <p class="note">✓ 符合　△ 部分符合　✗ 不符合。電子紙和一般螢幕的差別，技術評估會直接比較（第 17 章），讓資料回答。</p>
+      <p class="callout">電子紙的慢不是缺點，而是讓人跟得上的速度限制。</p>
     </div>
   </section>
 
@@ -2463,7 +2558,7 @@ HTML 62 行（附資料圖塊）</div></div>
         </details>
         <details>
           <summary>為什麼一定要用電子紙？</summary>
-          <p>這個通道需要一直顯示、安靜、陽光下清楚、鏡頭好讀、可以更新、省電。電子紙不通電也能保持畫面，是同時符合這些條件的顯示器，刷新樣態還能直接當成同步訊號。技術評估也會拿一般螢幕來比，看鏡頭那一端差多少。</p>
+          <p>這個通道需要一直顯示、安靜、鏡頭好讀、省電，而且不能快到人跟不上、不能藏得住東西。一般螢幕每秒能換 60 次以上，研究也證明它能把資料藏在人察覺不到的變化裡；電子紙刷新慢、刷完就靜止，每一次換畫面人都看得到，刷完後不耗電，拍起來也不會有條紋。刷新樣態還能直接當成同步訊號。技術評估也會拿一般螢幕來比（第 17 章）。</p>
         </details>
         <details>
           <summary>為什麼不全部用 QR code？</summary>
@@ -2646,7 +2741,8 @@ HTML 62 行（附資料圖塊）</div></div>
         <li>Vaswani, A. et al. (2017). <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>. NeurIPS.</li>
         <li>Dosovitskiy, A. et al. (2021). <a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>. ICLR.</li>
         <li>Hu, W., Gu, H. &amp; Pu, Q. (2013). <a href="https://doi.org/10.1145/2500423.2500437">LightSync: Unsynchronized Visual Communication over Screen-Camera Links</a>. MobiCom ’13.</li>
-        <li>Wang, A. et al. (2014–2015). <a href="https://www.cs.purdue.edu/homes/chunyi/projects/inframe.html">InFrame 系列：在影片畫面中藏入資料</a>. HotNets ’14、MobiSys ’15.</li>
+        <li>Wang, A., Peng, C., Zhang, O., Shen, G. &amp; Zeng, B. (2014). <a href="https://www.cs.purdue.edu/homes/chunyi/projects/inframe.html">InFrame: Multiflexing Full-Frame Visible Communication Channel for Humans and Devices</a>. HotNets ’14；InFrame++，MobiSys ’15。</li>
+        <li>Li, T., An, C., Xiao, X., Campbell, A. T. &amp; Zhou, X. (2015). <a href="https://dartnets.cs.dartmouth.edu/hilight">Real-Time Screen-Camera Communication Behind Any Scene</a>（HiLight）. MobiSys ’15.</li>
         <li>Ledo, D., Houben, S., Vermeulen, J., Marquardt, N., Oehlberg, L. &amp; Greenberg, S. (2018). <a href="https://doi.org/10.1145/3173574.3173610">Evaluation Strategies for HCI Toolkit Research</a>. CHI ’18.</li>
         <li>Waveshare. <a href="https://www.waveshare.com/wiki/3.52inch_e-Paper_HAT_Manual">3.52inch e-Paper HAT Manual</a>（DU 刷新與殘影）.</li>
         <li>Chen, L., Zaharia, M. &amp; Zou, J. (2024). <a href="https://arxiv.org/abs/2305.05176">FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance</a>. TMLR.</li>
@@ -3397,6 +3493,74 @@ HTML 62 行（附資料圖塊）</div></div>
       if (r.top < vh * 0.6 && r.bottom > vh * 0.4) { window.removeEventListener('scroll', onScroll); play(); }
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+
+  /* pace: the same 10 seconds on an ordinary screen and on e-paper, played once per press */
+  (function () {
+    var box = document.getElementById('pace');
+    if (!box) return;
+    var $ = function (id) { return document.getElementById(id); };
+    var MSG = ['胸口痛 3 天，爬樓梯時加重', '會不會喘？① 有 ② 沒有', '① 有，會喘', '胸口痛＋喘 → 3 號診間，正確嗎？', '✓ 正確', '報到完成 · 3 號診間'];
+    var T = 10000, READ = 3000, EPD = 450, token = 0, started = false;
+    var lcd = $('pace-lcd'), epd = $('pace-epd'), head = $('pace-head');
+    function mode() { return $('pace-h').checked ? 'human' : 'fast'; }
+    function ints(m) { return m === 'fast' ? { l: 1000 / 60, e: EPD } : { l: 3400, e: 3400 }; }
+    function stats(t, iv, m, isEpd) {
+      var sent = Math.min(Math.floor(t / iv) + 1, Math.floor((T - 1) / iv) + 1);
+      var read = 0;
+      for (var i = 0; i < sent; i++) { var st = i * iv, dwell = Math.min(iv, T - st); if (dwell >= READ && t - st >= READ) read++; }
+      var pow = isEpd ? Math.min(t, sent * EPD) : t;
+      if (isEpd && m === 'fast') pow = t;
+      return { sent: sent, read: read, pow: pow };
+    }
+    function show(pre, s, seen, m) {
+      $(pre + '-sent').textContent = s.sent + ' 則';
+      var se = $(pre + '-seen'); se.textContent = seen; se.className = /數不出來/.test(seen) ? 'bad' : '';
+      var rd = $(pre + '-read'); rd.textContent = s.read + ' 則'; rd.className = s.read ? 'good' : 'bad';
+      var pw = $(pre + '-pow'); pw.textContent = (s.pow / 1000).toFixed(1) + ' 秒'; pw.className = s.pow > T * .5 ? 'bad' : 'good';
+    }
+    function summary(m) {
+      return m === 'fast'
+        ? 'AI 全速時：一般螢幕 10 秒能換 600 次，人只看到一片閃動；電子紙最多換 23 次，每一次你都看得到，但每則只停 0.45 秒，還是讀不完。所以光是慢還不夠，還要讓訊息停留。'
+        : '照人的速度時：兩種螢幕都讀得完 3 則。差別在通電：一般螢幕整整 10 秒都得亮著，電子紙只有換畫面的 1.4 秒需要電。停留到人讀完，對電子紙幾乎不花成本。';
+    }
+    function setText(el, n, idx) { el.querySelector(el === lcd ? '.pn' : '.tag').textContent = '第 ' + n + ' 則'; (el === lcd ? $('pace-lcd-t') : $('pace-epd-t')).textContent = MSG[idx % MSG.length]; }
+    function final(m) {
+      var iv = ints(m);
+      var a = stats(T, iv.l, m, false), b = stats(T, iv.e, m, true);
+      show('pl', a, m === 'fast' ? '數不出來' : a.sent + ' 次', m);
+      show('pe', b, b.sent + ' 次', m);
+      lcd.classList.toggle('blur', m === 'fast');
+      setText(lcd, a.sent, a.sent - 1); setText(epd, b.sent, b.sent - 1);
+      head.style.width = '100%';
+      $('pace-sum').textContent = summary(m);
+    }
+    function play() {
+      var my = ++token, m = mode(), iv = ints(m), t0 = performance.now(), lastE = -1, lastL = -1, lastPaint = 0;
+      started = true;
+      $('pace-play').disabled = true;
+      $('pace-sum').textContent = m === 'fast' ? '兩邊的 AI 都用最快的速度說話……' : '兩邊的 AI 都照人讀得完的速度說話……';
+      if (reduce) { final(m); $('pace-play').disabled = false; return; }
+      lcd.classList.toggle('blur', m === 'fast');
+      (function f(now) {
+        if (my !== token) return;
+        var t = Math.min(T, now - t0);
+        head.style.width = (t / T * 100).toFixed(2) + '%';
+        var a = stats(t, iv.l, m, false), b = stats(t, iv.e, m, true);
+        if (a.sent !== lastL && (m !== 'fast' || now - lastPaint > 120)) { lastL = a.sent; lastPaint = now; setText(lcd, a.sent, a.sent - 1); }
+        if (b.sent !== lastE) { lastE = b.sent; setText(epd, b.sent, b.sent - 1); refresh(epd, 'du', 260); }
+        show('pl', a, m === 'fast' ? '數不出來' : a.sent + ' 次', m);
+        show('pe', b, b.sent + ' 次', m);
+        if (t < T) requestAnimationFrame(f);
+        else { final(m); $('pace-play').disabled = false; }
+      })(t0);
+    }
+    $('pace-play').addEventListener('click', play);
+    document.querySelectorAll('input[name="pacem"]').forEach(function (r) { r.addEventListener('change', play); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !started) { io.disconnect(); play(); } }); }, { threshold: 0.4 });
+      io.observe(box);
+    }
   })();
 
   /* model routing: the refresh mode picks the model */
